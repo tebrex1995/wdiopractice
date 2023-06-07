@@ -6,7 +6,6 @@ describe('webdriveruniversity - contact us page', () => {
     await browser.url('/Contact-Us/contactus.html');
 
     const firstName = await $('//*[@name="first_name"]');
-
     const lastName = await $('//*[@name="last_name"]');
     const email = await $('//*[@name="email"]');
     const message = await $('//*[@name="message"]');
@@ -24,10 +23,22 @@ describe('webdriveruniversity - contact us page', () => {
     );
   });
 
-  it('invalid submission - dont submit all information', () => {
-    //first name
-    //last name
-    //message
-    //submit button
+  it.only('invalid submission - dont submit all information', async () => {
+    await browser.url('/Contact-Us/contactus.html');
+    const firstName = await $('//*[@name="first_name"]');
+    const lastName = await $('//*[@name="last_name"]');
+    const message = await $('//*[@name="message"]');
+    const submitButton = await $('//input[@value="SUBMIT"]');
+
+    await firstName.setValue('Alex');
+    await lastName.setValue('Hardy');
+    await message.setValue('Lorem ipsum');
+    await submitButton.click();
+
+    const errorMessageOne = $('body');
+    await expect(errorMessageOne).toHaveTextContaining(
+      'Error: all fields are required',
+      'Error: Invalid email address'
+    );
   });
 });
