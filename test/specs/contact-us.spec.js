@@ -23,7 +23,7 @@ describe('webdriveruniversity - contact us page', () => {
     );
   });
 
-  it.only('invalid submission - dont submit all information', async () => {
+  it('invalid submission - dont submit all information', async () => {
     await browser.url('/Contact-Us/contactus.html');
     const firstName = await $('//*[@name="first_name"]');
     const lastName = await $('//*[@name="last_name"]');
