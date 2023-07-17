@@ -25,7 +25,7 @@ describe('wait commands - examples', () => {
     await clickMe_Button.waitForDisplayed();
   });
 
-  it.only('waitForExist command', async () => {
+  it('waitForExist command', async () => {
     const clickMe_Button = await $('#button1');
     await clickMe_Button.waitForExist();
   });

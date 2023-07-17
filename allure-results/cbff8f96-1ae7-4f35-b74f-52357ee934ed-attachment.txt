@@ -1,0 +1,4 @@
+{
+  "script": "return (() => {\n      return document.getElementById('not-displayed').setAttribute('id', '');\n    }).apply(null, arguments)",
+  "args": []
+}

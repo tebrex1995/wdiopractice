@@ -3,28 +3,29 @@ describe('webdriveruniversity - contact us page', () => {
     await browser.maximizeWindow();
     await browser.url('/Contact-Us/contactus.html');
 
-    console.log(`>>Browser Object: ${JSON.stringify(browser)}`);
+    // console.log(`>>Browser Object: ${JSON.stringify(browser)}`);
   });
-  it.only('valid submission - submit all information', async () => {
+  it('valid submission - submit all information', async () => {
     const firstName = await $('//*[@name="first_name"]');
     const lastName = await $('//*[@name="last_name"]');
     const email = await $('//*[@name="email"]');
     const message = await $('//*[@name="message"]');
-    const submitButton = await $('//input[@value="SUBMIT"]');
+    const submitButton = await $("[type='submit']");
 
     await firstName.setValue('Aki');
     await lastName.setValue('Madafaki');
     await email.setValue('aki@aki.com');
     await message.setValue('Lorem ipsum');
 
-    await browser.debug();
+    // await browser.debug();
     await submitButton.click();
-
+    await browser.pause(2000);
     const successfullSubmisionHeader = $('#contact_reply > h1');
-    console.log(
-      `successfullSubmisionHeader Element: ` +
-        JSON.stringify(await successfullSubmisionHeader)
-    );
+    // console.log(
+    //   `successfullSubmisionHeader Element: ` +
+    //     JSON.stringify(await successfullSubmisionHeader)
+    // );
+    await successfullSubmisionHeader.waitForDisplayed();
     await expect(successfullSubmisionHeader).toHaveText(
       'Thank You for your Message!'
     );
