@@ -1,22 +1,16 @@
-describe('webdriveruniversity - contact us page', function () {
+import contactUsPage from '../pageObjects/webdriver-university/contact-us.page';
+import ContactUsPage from '../pageObjects/webdriver-university/contact-us.page';
+
+describe('webdriveruniversity - contact us page', async function () {
+  // await this.retries(1); // Retry all tests in this suite up to 1 times
+
   beforeEach(async () => {
-    await browser.url('/Contact-Us/contactus.html');
-    this.retries(1);
+    await ContactUsPage.open();
 
     // console.log(`>>Browser Object: ${JSON.stringify(browser)}`);
   });
   it('valid submission - submit all information', async () => {
-    const firstName = await $('//*[@name="first_name"]');
-    const lastName = await $('//*[@name="last_name"]');
-    const email = await $('//*[@name="email"]');
-    const message = await $('//*[@name="message"]');
-    const submitButton = await $("[type='submit']");
-
-    await firstName.setValue('Aki');
-    await lastName.setValue('Madafaki');
-    await email.setValue('aki@aki.com');
-    await message.setValue('Lorem ipsum');
-
+    contactUsPage.submitForm('Aki', 'Madafaki', 'aki@aki.com', 'Lorem Ipsum');
     // await browser.debug();
     // await submitButton.click();
     await browser.waitThenClick(submitButton);
@@ -30,26 +24,10 @@ describe('webdriveruniversity - contact us page', function () {
     await expect(successfullSubmisionHeader).toHaveText(
       'Thank You for your Message!'
     );
-    //Jest Assertion
-    // const successfullSubmisionHeader2 = await $(
-    //   '#contact_reply > h1'
-    // ).getText();
-    // await expect(successfullSubmisionHeader2).toEqual(
-    //   'Thank You for your Message!'
-    // );
   });
 
   it('invalid submission - dont submit all information', async () => {
-    const firstName = await $('//*[@name="first_name"]');
-    const lastName = await $('//*[@name="last_name"]');
-    const message = await $('//*[@name="message"]');
-    const submitButton = await $('//input[@value="SUBMIT"]');
-
-    await firstName.setValue('Alex');
-    await lastName.setValue('Hardy');
-    await message.setValue('Lorem ipsum');
-    await submitButton.click();
-
+    contactUsPage.submitForm('Alex', 'Hardy', '', 'Lorem Ipsum');
     const errorMessageOne = $('body');
     await expect(errorMessageOne).toHaveTextContaining(
       'Error: all fields are required',
