@@ -1,8 +1,4 @@
 describe('advanced element interactions - examples', () => {
-  beforeEach(async () => {
-    await browser.maximizeWindow();
-  });
-
   it('inputs', async () => {
     await browser.url('/Contact-Us/contactus.html');
     const firstNameTextField = $('[name="first_name"]');

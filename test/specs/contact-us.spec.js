@@ -1,7 +1,7 @@
-describe('webdriveruniversity - contact us page', () => {
+describe('webdriveruniversity - contact us page', function () {
   beforeEach(async () => {
-    await browser.maximizeWindow();
     await browser.url('/Contact-Us/contactus.html');
+    this.retries(1);
 
     // console.log(`>>Browser Object: ${JSON.stringify(browser)}`);
   });
@@ -18,7 +18,8 @@ describe('webdriveruniversity - contact us page', () => {
     await message.setValue('Lorem ipsum');
 
     // await browser.debug();
-    await submitButton.click();
+    // await submitButton.click();
+    await browser.waitThenClick(submitButton);
     await browser.pause(2000);
     const successfullSubmisionHeader = $('#contact_reply > h1');
     // console.log(

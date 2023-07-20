@@ -1,6 +1,5 @@
 describe('locating elements', () => {
   beforeEach(async () => {
-    await browser.maximizeWindow();
     await browser.url('https://selectors.webdriveruniversity.com/');
   });
 

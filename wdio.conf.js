@@ -1,3 +1,4 @@
+const commands = require('./utils/commands.js');
 exports.config = {
   //
   // ====================
@@ -22,7 +23,7 @@ exports.config = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ['./test/specs/**/add-items-to-basket.spec.js'],
+  specs: ['./test/specs/**/contact-us.spec.js'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -113,7 +114,7 @@ exports.config = {
   framework: 'mocha',
   //
   // The number of times to retry the entire specfile when it fails as a whole
-  // specFileRetries: 1,
+  specFileRetries: 2,
   //
   // Delay in seconds between the spec file retry attempts
   // specFileRetriesDelay: 0,
@@ -203,8 +204,11 @@ exports.config = {
    * @param {string} commandName hook command name
    * @param {Array} args arguments that command would receive
    */
-  // beforeCommand: function (commandName, args) {
-  // },
+  beforeCommand: function (commandName, args) {
+    Object.keys(commands).forEach(key => {
+      browser.addCommand(key, commands[key]);
+    });
+  },
   /**
    * Hook that gets executed before the suite starts
    * @param {object} suite suite details
@@ -214,8 +218,9 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  // beforeTest: function (test, context) {
-  // },
+  beforeTest: async function (test, context) {
+    await browser.maximizeWindow();
+  },
   /**
    * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
    * beforeEach in Mocha)
