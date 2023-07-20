@@ -16,13 +16,20 @@ class ContactUsPage extends BasePage {
     return $('//*[@name="email"]');
   }
   get inputMessage() {
-    return $('//*[@name="message]');
+    return $('//*[@name="message"]');
   }
   get submitButton() {
-    return $("[type='submit']");
+    return $('//input[@value="SUBMIT"]');
   }
-  async submitForm(firstName, lastName, email, mesage) {
-    await this.inputFirstName.setValue(firstname);
+
+  get successfullSubmisionHeader() {
+    return $('#contact_reply > h1');
+  }
+  get errorMessage() {
+    return $('body');
+  }
+  async submitForm(firstName, lastName, email, message) {
+    await this.inputFirstName.setValue(firstName);
     await this.inputLastName.setValue(lastName);
     await this.inputEmail.setValue(email);
     await this.inputMessage.setValue(message);

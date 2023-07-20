@@ -6,30 +6,26 @@ describe('webdriveruniversity - contact us page', async function () {
 
   beforeEach(async () => {
     await ContactUsPage.open();
-
-    // console.log(`>>Browser Object: ${JSON.stringify(browser)}`);
   });
   it('valid submission - submit all information', async () => {
     contactUsPage.submitForm('Aki', 'Madafaki', 'aki@aki.com', 'Lorem Ipsum');
-    // await browser.debug();
-    // await submitButton.click();
-    await browser.waitThenClick(submitButton);
-    await browser.pause(2000);
-    const successfullSubmisionHeader = $('#contact_reply > h1');
-    // console.log(
-    //   `successfullSubmisionHeader Element: ` +
-    //     JSON.stringify(await successfullSubmisionHeader)
-    // );
-    await successfullSubmisionHeader.waitForDisplayed();
-    await expect(successfullSubmisionHeader).toHaveText(
+    await expect(contactUsPage.successfullSubmisionHeader).toHaveText(
       'Thank You for your Message!'
     );
   });
 
   it('invalid submission - dont submit all information', async () => {
     contactUsPage.submitForm('Alex', 'Hardy', '', 'Lorem Ipsum');
-    const errorMessageOne = $('body');
-    await expect(errorMessageOne).toHaveTextContaining(
+
+    await expect(contactUsPage.errorMessage).toHaveTextContaining(
+      'Error: all fields are required',
+      'Error: Invalid email address'
+    );
+  });
+
+  it('Only type a first name', async () => {
+    contactUsPage.submitForm('Alex', '', '', '');
+    await expect(contactUsPage.errorMessage).toHaveTextContaining(
       'Error: all fields are required',
       'Error: Invalid email address'
     );

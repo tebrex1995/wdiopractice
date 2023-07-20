@@ -23,7 +23,7 @@ exports.config = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ['./test/specs/**/contact-us.spec.js'],
+  specs: ['./test/specs/**/add-items-to-basket.spec.js'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -87,7 +87,7 @@ exports.config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'https://www.webdriveruniversity.com/',
+  baseUrl: 'https://www.webdriveruniversity.com/', //https://automationteststore.com/ || https://www.webdriveruniversity.com/
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -97,7 +97,7 @@ exports.config = {
   connectionRetryTimeout: 120000,
   //
   // Default request retries count
-  connectionRetryCount: 3,
+  connectionRetryCount: 1,
   //
   // Test runner services
   // Services take over a specific job you don't want to take care of. They enhance

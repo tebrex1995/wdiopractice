@@ -1,6 +1,8 @@
+import HomePage from '../../pageObjects/automation-test-store/home.page';
+
 describe('add  items to basked', () => {
   it('add specific skincare products to basket & validate cart total', async () => {
-    await browser.url('https://automationteststore.com/');
+    await HomePage.open();
     const skinCareLinks = await $$('//a[contains(text(), "Skincare")]');
     await skinCareLinks[1].click();
 
