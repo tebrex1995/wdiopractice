@@ -1,5 +1,7 @@
 import BasePage from './base.page';
 import ItemComponent from '../automation-test-store/components/item.comp';
+import NavComponent from '../automation-test-store/components/nav-menu.comp';
+import CartPage from '../automation-test-store/cart.page';
 
 class SkinCarePage extends BasePage {
   get itemComponent() {
@@ -37,20 +39,16 @@ class SkinCarePage extends BasePage {
       formatedItemPrices.forEach(price => (itemsTotal += parseFloat(price)));
     }
 
-    await $('//span[text()="Cart"]').click();
+    await NavComponent.navHeaderLinks.click();
     await expect(browser).toHaveUrlContaining('checkout');
-
-    var tempShippingRate = await $(
-      "//span[text()='Flat Shipping Rate:']/../following-sibling::td"
-    ).getText();
+    var tempShippingRate = await CartPage.shippingRate.getText();
+    console.log('THIS IS SHIPPING RATE TURNED TO TEXT--->', tempShippingRate);
     var shippingRate = tempShippingRate.replace('$', '');
     itemsTotal = itemsTotal + parseFloat(shippingRate);
     console.log('TOTAL ITEMS PRICE with shiping rate = ' + itemsTotal);
 
     //extract cart total
-    var cartTotal = await $(
-      "//span[text()='Total:']/../following-sibling::td"
-    ).getText();
+    var cartTotal = await CartPage.cartTotal.getText();
     cartTotal = cartTotal.replace('$', '');
     await expect(itemsTotal).toEqual(parseFloat(cartTotal));
   }
